@@ -1,0 +1,11 @@
+import { apiRequest } from './client';
+export type TrackingStatus = 'AVAILABLE'|'BOOKING_ACCEPTED'|'TRAVELLING'|'ARRIVED'|'OTP_PENDING'|'WORK_STARTED'|'WORK_IN_PROGRESS'|'WORK_COMPLETED'|'PAUSED';
+export type TrackingView = { id:string; trackingStatus:TrackingStatus; address:{latitude?:number|null;longitude?:number|null;addressLine1:string}; technician:{id:string;fullName?:string|null;phoneNumber:string;avatarUrl?:string|null;technicianProfile?:{ratingAverage:number;experienceYears:number}|null}; liveLocations:{latitude:number;longitude:number;speed?:number|null;heading?:number|null;createdAt:string}[] };
+export const getTracking = (bookingId:string) => apiRequest<TrackingView>(`/tracking/${bookingId}`);
+export const getTrackingRoute = (bookingId:string) => apiRequest<{latitude:number;longitude:number;timestamp:string;status:TrackingStatus}[]>(`/tracking/${bookingId}/route`);
+export const acceptTracking = (bookingId:string) => apiRequest(`/tracking/${bookingId}/accept`,{method:'POST'});
+export const updateTrackingStatus = (bookingId:string,status:TrackingStatus) => apiRequest(`/tracking/${bookingId}/status`,{method:'PATCH',body:{status}});
+export const publishLocation = (bookingId:string,body:{latitude:number;longitude:number;speed?:number;heading?:number;accuracy?:number;batteryLevel?:number}) => apiRequest(`/tracking/${bookingId}/location`,{method:'POST',body});
+export const beginArrivalVerification = (bookingId:string) => apiRequest(`/tracking/${bookingId}/arrival-otp`,{method:'POST'});
+export const verifyArrival = (bookingId:string,otp:string) => apiRequest(`/tracking/${bookingId}/verify-arrival`,{method:'POST',body:{otp}});
+export const getLiveJobs = () => apiRequest<TrackingView[]>('/tracking/admin/live');
