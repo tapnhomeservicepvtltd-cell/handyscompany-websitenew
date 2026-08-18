@@ -1,0 +1,9 @@
+import { apiRequest } from './client';
+
+export type PaidPackage = { id: string; name: string; type: 'BASIC'|'STANDARD'|'PREMIUM'|'CUSTOM'; description?: string | null; price: string | number; discountPrice?: string | number | null; gstPercent: string | number; offerBadge?: string | null; isPopular: boolean; isRecommended: boolean; features: { id: string; name: string; details?: string | null; included: boolean }[] };
+export type PaidService = { id: string; slug: string; name: string; description?: string | null; iconUrl?: string | null; bannerUrl?: string | null; estimatedTimeMin?: number | null; requiredTechnicians: number; requiredSkills: string[]; warrantyDays?: number | null; cancellationPolicy?: string | null; reschedulePolicy?: string | null; instructions?: string | null; packages: PaidPackage[]; galleries: { id: string; imageUrl: string; altText?: string | null }[]; faqs: { id: string; question: string; answer: string }[]; terms: { id: string; content: string }[] };
+export type PaidCategory = { id: string; name: string; slug: string; description?: string | null; iconUrl?: string | null; bannerUrl?: string | null; subcategories: { id: string; name: string; slug: string }[] };
+export const getPaidCategories = () => apiRequest<PaidCategory[]>('/paid-services/categories', { authenticated: false });
+export const getPaidServices = (query = '') => apiRequest<{ items: PaidService[]; meta: { total: number } }>(`/paid-services?${query}`, { authenticated: false });
+export const getPaidService = (slug: string) => apiRequest<PaidService>(`/paid-services/detail/${encodeURIComponent(slug)}`, { authenticated: false });
+export const getPaidQuote = (body: { packageId: string; city?: string; state?: string; area?: string; emergency?: boolean }) => apiRequest<{ basePrice: number; adjustment: { amount: number }; gst: number; total: number }>('/paid-services/quote', { authenticated: false, method: 'POST', body });

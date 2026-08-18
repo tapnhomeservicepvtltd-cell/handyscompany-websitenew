@@ -1,0 +1,106 @@
+import { ServiceItem } from "@/types/service";
+
+export const SALON_THEME = "#D946EF";
+
+const createWomenItem = (
+  config: Partial<ServiceItem> & Pick<ServiceItem, "id" | "title" | "hindiTitle" | "price" | "description" | "hindiDescription">
+): ServiceItem => ({
+  rating: 4.9,
+  reviewsCount: 890,
+  duration: "45-60 Mins",
+  visitCharge: 0,
+  labourFree: true,
+  membershipEligible: true,
+  subscriptionPlan: "699 Membership",
+  visitType: "Home Visit",
+  materialIncluded: true,
+  emergencyAvailable: true,
+  labourCharge: "FREE",
+  library: "MaterialCommunityIcons",
+  color: SALON_THEME,
+  route: `/service/${config.id}`,
+  category: "women-salon",
+  icon: config.icon || "face-woman",
+  includes: [
+    { title: "Single-Use Disposable Kit", icon: "shield-check" },
+    { title: "Monodose Sealed Products", icon: "package-variant-closed" },
+    { title: "Mess-Free Cleanup", icon: "broom" }
+  ],
+  benefits: [
+    { title: "100% Female Beauticians", icon: "account-check" },
+    { title: "Hygiene Guaranteed", icon: "shield" }
+  ],
+  brandsUsed: ["O3+", "Cheryl's", "L'Oreal", "Rica", "VLCC", "Lotus"],
+  ...config,
+});
+
+export const womenSalonServices: ServiceItem[] = [
+  createWomenItem({ id: "women_eyebrow_threading", title: "Eyebrow & Upperlip Threading", hindiTitle: "आइब्रो व अपरलिप थ्रेडिंग", price: "₹59", icon: "eyebrow", description: "Painless eyebrow shaping, upper lip, chin, and forehead threading.", hindiDescription: "धागे से आइब्रो शेपिंग, अपरलिप व फोरहेड थ्रेडिंग।" }),
+  createWomenItem({ id: "women_rica_waxing", title: "Full Arms & Legs Rica Waxing", hindiTitle: "फुल आर्म्स व लेग्स रिका वैक्स", price: "₹499", icon: "sparkles", description: "Italian Rica peel-off wax for pain-free skin tan removal & smoothness.", hindiDescription: "इटैलियन रिका वैक्स से बिना दर्द के बालों की सफाई।" }),
+  createWomenItem({ id: "women_o3_facial", title: "O3+ Professional Glow Facial", hindiTitle: "ओ3+ ब्राइटनिंग फेशियल", price: "₹899", icon: "face-woman", description: "O3+ whitening & brightening facial for instant bridal radiant skin.", hindiDescription: "त्वचा को चमकाने वाला ओ3+ ब्राइटनिंग फेशियल।" }),
+  createWomenItem({ id: "women_pedicure", title: "Classic Pedicure & Heel Scrub", hindiTitle: "क्लासिक पेडीक्योर फुट केयर", price: "₹499", icon: "foot-print", description: "Soaking, dead skin filing, nail shaping, foot scrub, and massage.", hindiDescription: "पैरों की जमी गंदगी, एड़ी सफाई व मालिश।" }),
+  createWomenItem({ id: "women_manicure", title: "Deluxe Manicure & Nail Polish", hindiTitle: "डीलक्स मेनिक्योर हैंड केयर", price: "₹399", icon: "hand-sparkles", description: "Hand scrub, cuticle care, relaxing hand massage, & nail polish.", hindiDescription: "हाथों की स्क्रबिंग, मसाज व नेल पॉलिश।" }),
+  createWomenItem({ id: "women_hair_spa", title: "L'Oreal Hair Spa & Steam", hindiTitle: "लॉरियल हेयर स्पा व स्टीम", price: "₹599", icon: "hair-dryer", description: "Deep nourishing hair spa cream massage & warm steam for dry hair.", hindiDescription: "बालों को मुलायम करने वाला लॉरियल हेयर स्पा व स्टीम।" }),
+  createWomenItem({ id: "women_haircut", title: "Women's Layer / Step Haircut", hindiTitle: "लेयर व स्टेप हेयरकट", price: "₹299", icon: "content-cut", description: "Professional haircut by expert female stylist with blow dry setting.", hindiDescription: "एक्सपर्ट द्वारा लेयर या स्टेप हेयरकट व ब्लो ड्राई।" }),
+  createWomenItem({ id: "women_head_massage", title: "Relaxing Champo Head Massage", hindiTitle: "चम्पी सिर की मालिश", price: "₹249", icon: "spa", description: "20-minute hot coconut/jasmine oil hair root massage.", hindiDescription: "20 मिनट की गुनगुने तेल से सिर की मालिश।" }),
+  createWomenItem({ id: "women_underarm_wax", title: "Rica Underarms Waxing", hindiTitle: "अंडरआर्म्स रिका वैक्सिंग", price: "₹129", icon: "hand", description: "Gentle underarm hair removal with white chocolate Rica wax.", hindiDescription: "अंडरआर्म्स के बालों की रिका वैक्स से सफाई।" }),
+  createWomenItem({ id: "women_detan_pack", title: "Raaga Professional De-Tan Pack", hindiTitle: "रागा डी-टैन पैक", price: "₹299", icon: "sun-thermometer", description: "Kojic acid & milk protein instant sun tan removal for face & neck.", hindiDescription: "चेहरे व गर्दन की धूप की कालिमा हटाने वाला डी-टैन।" }),
+  createWomenItem({ id: "women_bleach", title: "VLCC Diamond Bleach", hindiTitle: "वीएलसीसी डायमंड ब्लीच", price: "₹249", icon: "diamond-stone", description: "Skin lighting diamond bleach for face & neck area.", hindiDescription: "चेहरे के लिए वीएलसीसी डायमंड ब्लीच।" }),
+  createWomenItem({ id: "women_clean_up", title: "Cheryl's Herbal Face Cleanup", hindiTitle: "चेरिल्स फेस क्लीनअप", price: "₹449", icon: "sparkles", description: "Steam, blackhead extraction, & soothing face pack for daily pollution.", hindiDescription: "स्टीम, ब्लैकहेड्स सफाई व हर्बल फेस पैक।" }),
+  createWomenItem({ id: "women_hair_color", title: "L'Oreal Root Touch-Up Color", hindiTitle: "लॉरियल रूट टचअप कलर", price: "₹499", icon: "brush", description: "100% grey hair coverage for root touch-up with L'Oreal Majirel.", hindiDescription: "जड़ों के सफेद बालों की लॉरियल कलर से डाई।" }),
+  createWomenItem({ id: "women_full_body_wax", title: "Full Body Honey Waxing", hindiTitle: "फुल बॉडी हनी वैक्सिंग", price: "₹899", icon: "human-female", description: "Full arms, full legs, & underarms hair removal package.", hindiDescription: "हाथों, पैरों व अंडरआर्म्स की फुल बॉडी वैक्सिंग।" }),
+  createWomenItem({ id: "women_body_polishing", title: "Bridal Body Polishing Scrub", hindiTitle: "बॉडी पॉलिशिंग व स्क्रब", price: "₹1,499", icon: "auto-fix", description: "Full body walnut scrub, de-tan mask, & moisturizing glow oil.", hindiDescription: "पूरे शरीर की स्क्रबिंग, डी-टैन व बॉडी पॉलिशिंग।" }),
+  createWomenItem({ id: "women_smoothening", title: "Hair Smoothening / Straightening", hindiTitle: "हेयर स्मूथनिंग व रिबॉन्डिंग", price: "₹1,999", icon: "hair-dryer", description: "Permanent hair smoothening with Schwarzkopf Glatt cream.", hindiDescription: "बालों को सिल्क व सीधा करने वाली स्मूथनिंग।" }),
+  createWomenItem({ id: "women_makeup_party", title: "HD Party Makeup & Hair Styling", hindiTitle: "एचडी पार्टी मेकअप व हेयर स्टाइल", price: "₹1,499", icon: "palette", description: "Long-lasting HD party makeup, saree draping, & hair do.", hindiDescription: "पार्टी मेकअप, साड़ी ड्रैपिंग व हेयर स्टाइलिंग।" }),
+  createWomenItem({ id: "women_saree_draping", title: "Saree Draping & Dupatta Setting", hindiTitle: "साड़ी ड्रैपिंग व चुनरी सेटिंग", price: "₹199", icon: "hanger", description: "Pinning & pleating classic, Gujarati, or nauvari saree styles.", hindiDescription: "साड़ी की प्लेट्स बनाना व पिनिंग करना।" }),
+  createWomenItem({ id: "women_nail_art", title: "Gel Nail Extensions & Art", hindiTitle: "नेल एक्सटेंशन व नेल आर्ट", price: "₹799", icon: "hand-heart", description: "Acrylic or gel nail extension with glitter French nail art.", hindiDescription: "जैल नेल एक्सटेंशन व फैंसी नेल आर्ट।" }),
+  createWomenItem({ id: "women_full_face_wax", title: "Full Face Facial Hair Rica Wax", hindiTitle: "फेस वैक्सिंग (चेहरा सफाई)", price: "₹249", icon: "face-woman-profile", description: "Removing fine peach fuzz face hair with sensitive peel-off wax.", hindiDescription: "चेहरे के छोटे बालों की रिका पील-ऑफ वैक्स से सफाई।" }),
+  createWomenItem({ id: "women_back_spa", title: "Back Spa & Tan Scrub", hindiTitle: "बैक स्पा व डी-टैन स्क्रब", price: "₹499", icon: "human-female", description: "Exfoliating back scrub, steaming, and cream massage for low-back dresses.", hindiDescription: "डीप बैक स्क्रब, स्टीम व क्रीम मसाज।" }),
+  createWomenItem({ id: "women_ice_facial", title: "Cryo Ice Globe Cooling Facial", hindiTitle: "क्रायो आइस ग्लोब फेशियल", price: "₹699", icon: "snowflake", description: "Cold ice globe glass roller massage to reduce face puffiness & pores.", hindiDescription: "चेहरे की सूजन व खुले पोर्स के लिए आइस फेशियल।" }),
+  createWomenItem({ id: "women_head_hairfall", title: "Anti-Hairfall Power Dose Spa", hindiTitle: "एंटी-हेयरफॉल पावर डोज स्पा", price: "₹699", icon: "leaf", description: "Concentrated aminexil ampoule root massage to stop hair breakage.", hindiDescription: "बालों का झड़ना रोकने के लिए एम्पूल स्पा।" }),
+  createWomenItem({ id: "women_fruit_clean", title: "Papaya Fruit Skin Polish", hindiTitle: "पपाया फ्रूट स्किन पॉलिश", price: "₹349", icon: "food-apple-outline", description: "Natural fruit enzyme pack for sensitive glowing skin.", hindiDescription: "नेचुरल पपीता अर्क से स्किन पॉलिशिंग।" }),
+  createWomenItem({ id: "women_head_henna", title: "Herbal Mehendi Hair Pack Application", hindiTitle: "हर्बल मेहंदी पैक लगाना", price: "₹249", icon: "brush", description: "Applying home-mixed conditioning mehendi paste on hair & wash.", hindiDescription: "सिर में प्राकृतिक हर्बल मेहंदी लगाना।" }),
+  createWomenItem({ id: "women_keratin_treatment", title: "Keratin Protein Hair Treatment", hindiTitle: "केराटिन प्रोटीन हेयर ट्रीटमेंट", price: "₹2,499", icon: "sparkles", description: "Nourishing dry damaged hair with liquid keratin protein.", hindiDescription: "खराब बालों के लिए केराटिन प्रोटीन ट्रीटमेंट।" }),
+  createWomenItem({ id: "women_gel_polish", title: "Gel Polish Hand Overlay", hindiTitle: "जैल नेल पॉलिश", price: "₹299", icon: "spray", description: "UV lamp cured chip-free gel nail polish lasting 3 weeks.", hindiDescription: "3 हफ्ते तक न छूटने वाली यूवी जैल नेल पॉलिश।" }),
+  createWomenItem({ id: "women_bikini_wax", title: "Bikini Line Rica Waxing", hindiTitle: "बिकिनी लाइन रिका वैक्स", price: "₹499", icon: "shield-half-full", description: "Safe & private intimate bikini line hair removal with Rica avocado wax.", hindiDescription: "प्राइवेट बिकिनी लाइन की सेफ रिका वैक्स।" }),
+  createWomenItem({ id: "women_full_bikini_wax", title: "Full Hollywood Brazilian Wax", hindiTitle: "ब्राजीलीन फुल बिकिनी वैक्स", price: "₹899", icon: "shield-check-outline", description: "100% painless hard wax Brazilian intimate hair removal.", hindiDescription: "फुल ब्राजीलीन इंटीमेट एरिया रिका हार्ड वैक्स।" }),
+  createWomenItem({ id: "women_gold_facial", title: "Lotus 24K Gold Radiant Facial", hindiTitle: "24K गोल्ड रेडिएंट फेशियल", price: "₹799", icon: "gold", description: "24K pure gold leaf massage for glowing wedding skin.", hindiDescription: "शादी-विवाह के लिए 24K गोल्ड फेशियल।" }),
+  createWomenItem({ id: "women_threading_chin", title: "Chin & Sideburns Threading", hindiTitle: "चिन व साइडबर्न्स थ्रेडिंग", price: "₹69", icon: "dots-horizontal", description: "Threading coarse hair on chin and jawline area.", hindiDescription: "ठोड़ी (चिन) व गालों के बालों की थ्रेडिंग।" }),
+  createWomenItem({ id: "women_blow_dry", title: "Out-Curl Blow Dry & Hair Setting", hindiTitle: "आउट-कर्ल ब्लो ड्राई स्टाइल", price: "₹249", icon: "hair-dryer", description: "In-curl or out-curl volume blow dry styling.", hindiDescription: "बालों को बाउंसी लुक देने के लिए ब्लो ड्राई।" }),
+  createWomenItem({ id: "women_hair_crimping", title: "Hair Crimping & Volume Styling", hindiTitle: "हेयर क्रिम्पिंग व वॉल्यूम", price: "₹299", icon: "format-line-weight", description: "Crimping hair roots to give instant thick bouncy volume for party.", hindiDescription: "पार्टी के लिए बालों में क्रिम्पिंग वॉल्यूम।" }),
+  createWomenItem({ id: "women_face_bleach_oxy", title: "OxyLife Oxygen Face Bleach", hindiTitle: "ऑक्सीलाइफ ऑक्सीजन ब्लीच", price: "₹199", icon: "molecule", description: "Instant oxygen boost bleach for dull tired face skin.", hindiDescription: "चेहरे की थकान दूर करने वाला ऑक्सीजन ब्लीच।" }),
+  createWomenItem({ id: "women_paraffin_pedicure", title: "Warm Paraffin Wax Pedicure", hindiTitle: "पैराफिन वैक्स पेडीक्योर", price: "₹699", icon: "foot-print", description: "Warm paraffin wax DIP for cracked heels and soft feet.", hindiDescription: "फटी एड़ियों के लिए पैराफिन मोम पेडीक्योर।" }),
+  createPedicure({ id: "women_french_nail", title: "Classic French Manicure Art", hindiTitle: "फ्रेंच मेनिक्योर नेल आर्ट", price: "₹449", icon: "hand-sparkles", description: "White tip French nail painting with clear coat overlay.", hindiDescription: "सफेद टिप्स वाली क्लासिक फ्रेंच नेल आर्ट।" }),
+  createWomenItem({ id: "women_body_massage_spa", title: "Full Body Aroma Oil Spa", hindiTitle: "फुल बॉडी अरोमा ऑयल स्पा", price: "₹1,199", icon: "spa-outline", description: "60-minute relaxing lavender aroma oil body massage by expert masseuse.", hindiDescription: "लैवेंडर अरोमा ऑयल से 60 मिनट की बॉडी मसाज।" }),
+  createWomenItem({ id: "women_hair_global_color", title: "Global Hair Color (Full Length)", hindiTitle: "ग्लोबल हेयर कलर (पूरे बाल)", price: "₹1,499", icon: "palette", description: "Full hair length color change in Burgundy, Chocolate, or Hazelnut.", hindiDescription: "पूरे बालों की मनपसंद ग्लोबल कलरिंग।" }),
+  createWomenItem({ id: "women_balayage_highlights", title: "Hair Balayage / Ombre Color", hindiTitle: "बालायाज / ओम्ब्रे हाइलाइट्स", price: "₹1,999", icon: "gradient", description: "Hand painted fashion balayage streaks for modern ombre hair.", hindiDescription: "आधुनिक बालायाज व ओम्ब्रे हेयर शेडिंग।" }),
+  createWomenItem({ id: "women_hydra_facial", title: "Hydra Deep Pore Suction Facial", hindiTitle: "हाइड्रा फेशियल मशीन क्लीन", price: "₹1,299", icon: "water-percent", description: "Vacuum water jet deep pore cleaning & hyaluronic serum infusion.", hindiDescription: "वैक्यूम वाटर जेट से गहरा हाइड्रा फेशियल।" }),
+  createWomenItem({ id: "women_charcoal_pedi", title: "Black Charcoal Foot Detox", hindiTitle: "ब्लैक चारकोल फुट डिटॉक्स", price: "₹549", icon: "shoe-heel", description: "Soaking feet in activated charcoal salt to draw out impurities.", hindiDescription: "पैरों की बदबू व गंदगी हटाने वाला चारकोल पेडीक्योर।" }),
+  createWomenItem({ id: "women_eyelash_extension", title: "Individual Eyelash Extensions", hindiTitle: "आइलैश एक्सटेंशन", price: "₹999", icon: "eye", description: "Semi-permanent lash volume extensions for thick eyelashes.", hindiDescription: "घनी पलकों के लिए आइलैश एक्सटेंशन।" }),
+  createWomenItem({ id: "women_microblading_eyebrows", title: "Eyebrow Tinting & Henna Dye", hindiTitle: "आइब्रो टिंटिंग व मेहंदी कलर", price: "₹249", icon: "brush", description: "Semi-permanent organic henna tinting for dark defined brows.", hindiDescription: "आइब्रो को डार्क व घना दिखाने की टिंटिंग।" }),
+  createWomenItem({ id: "women_stomach_wax", title: "Stomach & Lower Back Wax", hindiTitle: "स्टमक व बैक वैक्स", price: "₹299", icon: "human-female", description: "Removing unwanted hair from front belly & lower back.", hindiDescription: "पेट व कमर के निचले हिस्से की वैक्सिंग।" }),
+  createWomenItem({ id: "women_neck_detan", title: "Dark Neck De-Tan & Scrub", hindiTitle: "काली गर्दन डी-टैन व स्क्रब", price: "₹199", icon: "human-handsdown", description: "Lightening dark neck lines with glycolic scrub pack.", hindiDescription: "गर्दन के कालेपन को दूर करने का स्क्रब।" }),
+  createWomenItem({ id: "women_hair_botox", title: "Hair Botox & Deep Repair", hindiTitle: "हेयर बोटोक्स डीप रिपेयर", price: "₹2,999", icon: "shield-star", description: "Anti-aging hair botox filling split ends & dry hair shaft.", hindiDescription: "टूटे व दोमुंहे बालों का हेयर बोटोक्स रिपेयर।" }),
+  createWomenItem({ id: "women_underarm_detan", title: "Underarm Dark Spot Lighting Pack", hindiTitle: "अंडरआर्म्स डार्क स्पॉट डी-टैन", price: "₹199", icon: "arm-flex-outline", description: "Lightening dark underarm patches with Kojic acid serum pack.", hindiDescription: "अंडरआर्म्स के कालेपन को दूर करने का पैक।" }),
+  createWomenItem({ id: "women_ear_clean_spa", title: "Ear Candle Hygiene Spa", hindiTitle: "इयर कैंडल वैक्स सफाई स्पा", price: "₹249", icon: "ear-hearing", description: "Thermal ear candle vacuum to draw out hardened ear wax.", hindiDescription: "कान की मोम सफाई के लिए इयर कैंडल स्पा।" }),
+  createWomenItem({ id: "women_hand_wax_halves", title: "Half Arms & Half Legs Wax", hindiTitle: "हाफ आर्म्स व हाफ लेग्स वैक्स", price: "₹299", icon: "human-legs", description: "Elbow down arms and knee down legs Rica honey wax.", hindiDescription: "कोहनी व घुटने तक हाथों-पैरों की वैक्सिंग।" }),
+  createWomenItem({ id: "women_home_audit", title: "Bridal Package Beauty Consultation", hindiTitle: "दुल्हन पैकेज ब्यूटी सलाह", price: "₹199", icon: "clipboard-heart", description: "Customized pre-bridal skin calendar and trial consultation.", hindiDescription: "शादी की स्किन व मेकअप कैलेंडर कंसल्टेशन।" }),
+  // New Added Services from Catalog
+  createWomenItem({ id: "women_airbrush_makeup", title: "Premium Airbrush Makeup", hindiTitle: "प्रीमियम एयरब्रश मेकअप", price: "₹4,999", icon: "spray", description: "Flawless, waterproof, and long-lasting airbrush makeup for brides and specials.", hindiDescription: "दुल्हन के लिए वाटरप्रूफ और लॉन्ग लास्टिंग एयरब्रश मेकअप।" }),
+  createWomenItem({ id: "women_hd_bridal_makeup", title: "HD Bridal Makeup Package", hindiTitle: "एचडी ब्राइडल मेकअप पैकेज", price: "₹6,999", icon: "crown", description: "High-Definition bridal makeup including hair styling, draping, and extensions.", hindiDescription: "ब्राइडल एचडी मेकअप, हेयर स्टाइलिंग और साड़ी ड्रेपिंग।" }),
+  createWomenItem({ id: "women_pre_bridal_1_month", title: "Pre-Bridal Package (1 Month)", hindiTitle: "प्री-ब्राइडल पैकेज (1 महीना)", price: "₹5,999", icon: "star-circle", description: "Full Body Waxing, Body Polishing, 2 Premium Facials, and Full Body Bleach.", hindiDescription: "शादी से पहले स्किन केयर के लिए 1 महीने का कम्पलीट पैकेज।" }),
+  createWomenItem({ id: "women_weekend_pamper", title: "Weekend Pamper Package", hindiTitle: "वीकेंड पैम्पर पैकेज", price: "₹1,499", icon: "spa", description: "Spa Pedicure & Manicure, L'Oreal Hair Spa, and Head & Shoulder Massage.", hindiDescription: "वीकेंड रिलैक्सेशन के लिए स्पा, मेनिक्योर और पेडीक्योर।" }),
+  createWomenItem({ id: "women_monthly_grooming", title: "Monthly Grooming Combo", hindiTitle: "मंथली ग्रूमिंग कॉम्बो", price: "₹999", icon: "calendar-check", description: "Rica Full Arms + Half Legs Waxing + Eyebrows & Upper Lip + Fruit Cleanup.", hindiDescription: "रेगुलर वैक्सिंग, थ्रेडिंग और क्लीनअप का मंथली पैकेज।" }),
+  createWomenItem({ id: "women_rollon_waxing", title: "Roll-on Waxing (Full Arms & Legs)", hindiTitle: "रोल-ऑन वैक्स (फुल आर्म्स व लेग्स)", price: "₹599", icon: "roller-shade", description: "Fast, hygienic, and mess-free waxing using a heated roll-on cartridge.", hindiDescription: "हाइजीनिक और जल्दी होने वाली रोल-ऑन वैक्सिंग।" }),
+  createWomenItem({ id: "women_katori_face_wax", title: "Face Waxing (Katori Wax)", hindiTitle: "फेस वैक्सिंग (कटोरी वैक्स)", price: "₹149", icon: "face-woman-shimmer", description: "Gentle waxing for facial hair (upper lip, chin) using peel-off katori wax.", hindiDescription: "चेहरे के बालों के लिए जेंटल कटोरी पील-ऑफ वैक्स।" }),
+  createWomenItem({ id: "women_acne_facial", title: "Acne Treatment Ozone Facial", hindiTitle: "एक्ने ट्रीटमेंट ओजोन फेशियल", price: "₹899", icon: "medical-bag", description: "Specialized facial with ozone treatment for acne-prone oily skin.", hindiDescription: "पिंपल्स वाली त्वचा के लिए खास ओजोन फेशियल ट्रीटमेंट।" }),
+  createWomenItem({ id: "women_diamond_facial", title: "Sara / VLCC Diamond Facial", hindiTitle: "डायमंड ग्लो फेशियल", price: "₹999", icon: "diamond", description: "Luxury facial giving a glowing, polished diamond look. Perfect before parties.", hindiDescription: "चेहरे पर डायमंड जैसा ग्लो लाने वाला लग्जरी फेशियल।" }),
+];
+
+function createPedicure(config: any) {
+  return createWomenItem(config);
+}
+
+export const homeWomenSalonServices = womenSalonServices.slice(0, 8);
+export const allWomenSalonServices = womenSalonServices;
+export default womenSalonServices;

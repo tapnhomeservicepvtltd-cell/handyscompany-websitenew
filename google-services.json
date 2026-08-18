@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "390258388878",
+    "project_id": "handyscompany-f1899",
+    "storage_bucket": "handyscompany-f1899.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390258388878:android:e943ed9a9c348c412ebedf",
+        "android_client_info": {
+          "package_name": "com.goluk5767.HandysCompanyNew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390258388878-0vef3sa2m9ankr8vm5eic4t191lrj3bs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBICnlX4RRgXCJbDamASB7A9LHpDOB9lyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390258388878-0vef3sa2m9ankr8vm5eic4t191lrj3bs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390258388878:android:6120e3ec6863b1952ebedf",
+        "android_client_info": {
+          "package_name": "com.handyscompany.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390258388878-0vef3sa2m9ankr8vm5eic4t191lrj3bs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBICnlX4RRgXCJbDamASB7A9LHpDOB9lyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390258388878-0vef3sa2m9ankr8vm5eic4t191lrj3bs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
