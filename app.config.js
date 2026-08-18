@@ -13,7 +13,7 @@ module.exports = ({ config: _config }) => {
     process.env.EXPO_PUBLIC_API_BASE_URL ?? '';
 
   return {
-    name: 'HandysCompanyNew',
+    name: 'Handys Technician',
     owner: 'goluk5767',
     slug: 'HandysCompanyNew',
     version: '1.0.0',
