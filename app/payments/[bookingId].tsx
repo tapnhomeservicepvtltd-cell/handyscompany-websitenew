@@ -1,0 +1,21 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useState } from 'react';
+import { Platform, ActivityIndicator, Alert, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import RazorpayCheckout from 'react-native-razorpay';
+
+import { ApiError } from '@/services/api/client';
+import { createRazorpayOrder, payWithWallet, verifyRazorpayPayment } from '@/services/api/payments';
+
+const razorpayKey = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID;
+
+export default function PaymentScreen() {
+  const router = useRouter();
+  const { bookingId } = useLocalSearchParams<{ bookingId: string }>();
+  const [loading, setLoading] = useState<'razorpay' | 'wallet' | null>(null);
+  const completeWalletPayment = async () => { setLoading('wallet'); try { await payWithWallet(bookingId); router.replace(`/bookings/${bookingId}` as never); } catch (caught) { Alert.alert('Wallet payment failed', caught instanceof ApiError ? caught.message : 'Please try another payment method.'); } finally { setLoading(null); } };
+  const beginRazorpayPayment = async () => { if (Platform.OS === 'web') { Alert.alert('Mobile payment required', 'Razorpay native checkout is available on Android and iOS.'); return; } if (!razorpayKey) { Alert.alert('Payment configuration missing', 'EXPO_PUBLIC_RAZORPAY_KEY_ID is not configured.'); return; } setLoading('razorpay'); try { const order = await createRazorpayOrder(bookingId); const response = await RazorpayCheckout.open({ key: razorpayKey, amount: order.amount, currency: order.currency, name: 'HandysCompany', description: 'Service booking payment', order_id: order.orderId, theme: { color: '#00A651' } }); await verifyRazorpayPayment({ razorpayOrderId: response.razorpay_order_id, razorpayPaymentId: response.razorpay_payment_id, razorpaySignature: response.razorpay_signature }); router.replace(`/bookings/${bookingId}` as never); } catch (caught) { Alert.alert('Payment not completed', caught instanceof ApiError ? caught.message : 'The payment was not completed.'); } finally { setLoading(null); } };
+  return <SafeAreaView style={styles.safeArea}><View style={styles.header}><Pressable onPress={() => router.back()}><MaterialCommunityIcons name="arrow-left" size={26} color="#0F172A" /></Pressable><Text style={styles.title}>Payment</Text><View style={{width:26}} /></View><View style={styles.content}><Text style={styles.heading}>Choose how you want to pay</Text><Text style={styles.subtitle}>Payments are verified securely before your booking is marked paid.</Text><Pressable disabled={loading!==null} onPress={() => void beginRazorpayPayment()} style={styles.card}><MaterialCommunityIcons name="credit-card-outline" size={28} color="#00A651"/><View style={styles.cardText}><Text style={styles.cardTitle}>UPI, card or net banking</Text><Text style={styles.cardSub}>Secure Razorpay checkout</Text></View>{loading==='razorpay'?<ActivityIndicator color="#00A651"/>:<MaterialCommunityIcons name="chevron-right" size={24} color="#64748B"/>}</Pressable><Pressable disabled={loading!==null} onPress={() => void completeWalletPayment()} style={styles.card}><MaterialCommunityIcons name="wallet-outline" size={28} color="#00A651"/><View style={styles.cardText}><Text style={styles.cardTitle}>HandysCompany Wallet</Text><Text style={styles.cardSub}>Use your available wallet balance</Text></View>{loading==='wallet'?<ActivityIndicator color="#00A651"/>:<MaterialCommunityIcons name="chevron-right" size={24} color="#64748B"/>}</Pressable></View></SafeAreaView>;
+}
+
+const styles=StyleSheet.create({safeArea:{flex:1,backgroundColor:'#F8FAFC'},header:{height:58,paddingHorizontal:16,backgroundColor:'#FFF',flexDirection:'row',alignItems:'center',justifyContent:'space-between',borderBottomWidth:1,borderColor:'#E2E8F0'},title:{fontSize:19,fontWeight:'800',color:'#0F172A'},content:{padding:20},heading:{fontSize:22,fontWeight:'900',color:'#0F172A'},subtitle:{fontSize:13,color:'#64748B',lineHeight:19,marginTop:6,marginBottom:22},card:{flexDirection:'row',alignItems:'center',gap:13,backgroundColor:'#FFF',borderWidth:1,borderColor:'#E2E8F0',borderRadius:16,padding:17,marginBottom:12},cardText:{flex:1},cardTitle:{fontSize:15,fontWeight:'800',color:'#0F172A'},cardSub:{fontSize:12,color:'#64748B',marginTop:3}});
