@@ -89,6 +89,40 @@ export default function TechnicianDashboard() {
   const [, setActiveBookingId] = useState<string | null>(null);
   const locationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // ─── Load dashboard data ─────────────────────────────────────────────────
+  const load = useCallback(async (refresh = false) => {
+    refresh ? setRefreshing(true) : setLoading(true);
+    setError(null);
+    try {
+      const [me, assigned] = await Promise.all([
+        getMyTechnicianProfile(),
+        getAssignedBookings(),
+      ]);
+      setProfile(me);
+      setJobs(assigned.items);
+
+      // Find any active job needing location tracking
+      const activeJob = assigned.items.find(
+        (j: Booking) => j.status === 'ASSIGNED' || j.status === 'IN_PROGRESS'
+      );
+      if (activeJob) {
+        setActiveBookingId(activeJob.id);
+        await AsyncStorage.setItem('activeBookingId', activeJob.id);
+      } else {
+        await AsyncStorage.removeItem('activeBookingId');
+      }
+    } catch (caught) {
+      setError(
+        caught instanceof ApiError
+          ? caught.message
+          : 'Technician dashboard could not be loaded.'
+      );
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  }, []);
+
   // ─── Setup FCM Push Token & Listeners ─────────────────────────────────
   useEffect(() => {
     const setupFCM = async () => {
@@ -152,39 +186,7 @@ export default function TechnicianDashboard() {
     };
   }, [load]);
 
-  // ─── Load dashboard data ─────────────────────────────────────────────────
-  const load = useCallback(async (refresh = false) => {
-    refresh ? setRefreshing(true) : setLoading(true);
-    setError(null);
-    try {
-      const [me, assigned] = await Promise.all([
-        getMyTechnicianProfile(),
-        getAssignedBookings(),
-      ]);
-      setProfile(me);
-      setJobs(assigned.items);
-
-      // Find any active job needing location tracking
-      const activeJob = assigned.items.find(
-        (j: Booking) => j.status === 'ASSIGNED' || j.status === 'IN_PROGRESS'
-      );
-      if (activeJob) {
-        setActiveBookingId(activeJob.id);
-        await AsyncStorage.setItem('activeBookingId', activeJob.id);
-      } else {
-        await AsyncStorage.removeItem('activeBookingId');
-      }
-    } catch (caught) {
-      setError(
-        caught instanceof ApiError
-          ? caught.message
-          : 'Technician dashboard could not be loaded.'
-      );
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  }, []);
+  // (load already defined above)
 
   useFocusEffect(
     useCallback(() => {
@@ -276,7 +278,6 @@ export default function TechnicianDashboard() {
       try {
         const loc = await Location.getCurrentPositionAsync({
           accuracy: Location.Accuracy.Balanced,
-          maxAge: 10000,
         });
 
         await apiRequest(`/tracking/${bookingId}/location`, {

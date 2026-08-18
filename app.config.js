@@ -36,6 +36,7 @@ module.exports = ({ config: _config }) => {
         monochromeImage: './assets/images/android-icon-monochrome.png',
       },
       predictiveBackGestureEnabled: false,
+      usesCleartextTraffic: true,
       package: 'com.goluk5767.HandysCompanyNew',
       googleServicesFile: './google-services.json',
       versionCode: 1,

@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { getMyProfile } from "../services/api/users";
 import React, { useEffect, useState } from "react";
 import {
     Animated,
@@ -33,9 +34,17 @@ export default function WelcomeScreen() {
       }),
     ]).start();
 
-    // ⏱️ 2.5 सेकंड बाद ऑटोमैटिकली होम स्क्रीन (Tabs) पर रीडायरेक्ट
+    // ⏱️ 2.5 सेकंड बाद सेशन चेक करके रीडायरेक्ट करें
     const redirectTimer = setTimeout(() => {
-      router.replace("/(tabs)" as any);
+      getMyProfile().then((profile: any) => {
+        if (profile && (profile.role === 'TECHNICIAN' || profile.role === 'ADMIN')) {
+          router.replace("/technician/dashboard" as any);
+        } else {
+          router.replace("/login" as any);
+        }
+      }).catch(() => {
+        router.replace("/login" as any);
+      });
     }, 2500);
 
     return () => clearTimeout(redirectTimer);

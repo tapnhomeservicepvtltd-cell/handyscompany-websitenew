@@ -10,15 +10,12 @@ function getApiBaseUrl() {
     (Constants.expoConfig?.extra?.apiBaseUrl as string | undefined);
 
   const normalizedUrl = configuredUrl?.replace(/\/$/, '');
-  if (normalizedUrl) return normalizedUrl;
-
-  if (Platform.OS === 'android') {
-    return 'http://10.0.2.2:3000';
+  
+  if (!normalizedUrl) {
+    throw new Error("EXPO_PUBLIC_API_BASE_URL is missing. Do not fallback to localhost in Technician APK.");
   }
 
-  return Platform.OS === 'web' || Platform.OS === 'ios'
-    ? 'http://localhost:3000'
-    : undefined;
+  return normalizedUrl;
 }
 
 export class ApiError extends Error {

@@ -18,7 +18,9 @@ import {
     View
 } from "react-native";
 import { requestOtp, verifyOtp } from "../services/api/auth";
-import { saveSession } from "../services/api/client";
+import { saveSession, clearSession } from "../services/api/client";
+import { getMyProfile } from "../services/api/users";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLang } from "./context/LanguageContext"; // 🎯 फिक्स: Language Context इम्पोर्ट किया
 
 const OTP_LENGTH = 6;
@@ -115,8 +117,19 @@ export default function LoginScreen() {
     try {
       const session = await verifyOtp(`+91${phoneNumber}`, otpCode);
       await saveSession(session);
-      Alert.alert(t("Success 🎉", "सफलता 🎉"), t("Login Successful", "लॉगिन सफल रहा"));
-      router.replace("/(tabs)" as any);
+      
+      const profile = await getMyProfile();
+      
+      if (profile && (profile.role === 'TECHNICIAN' || profile.role === 'ADMIN')) {
+        Alert.alert(t("Success 🎉", "सफलता 🎉"), t("Login Successful", "लॉगिन सफल रहा"));
+        router.replace("/technician/dashboard" as any);
+      } else {
+        // Not a technician
+        await AsyncStorage.removeItem('session'); // or clearSession() if imported
+        Alert.alert(t("Access Denied", "एक्सेस नहीं है"), t("This app is for Authorized Technicians only.", "यह ऐप केवल प्रमाणित टेक्नीशियन के लिए है।"));
+        setOtp(Array(OTP_LENGTH).fill(""));
+        otpRefs.current[0]?.focus();
+      }
     } catch (error: any) {
       Alert.alert(
         t("Verification Failed", "सत्यापन विफल रहा"),
@@ -326,19 +339,8 @@ export default function LoginScreen() {
             </TouchableOpacity>
           </View>
 
-          {/* नया अकाउंट बनाने का लिंक */}
-          <TouchableOpacity
-            style={styles.registerRedirect}
-            onPress={() => router.push("/register")}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.redirectText}>
-              {t("Don't have an account? ", "खाता नहीं है? ")}
-              <Text style={styles.redirectLink}>{t("Create New Account", "नया खाता बनाएं")}</Text>
-            </Text>
-          </TouchableOpacity>
-
           {/* फुटर - टर्म्स एंड प्राइवेसी */}
+          {/* Register Link Removed for Technician APK */}
           <Text style={styles.footerText}>
             {t("By continuing, you agree to our ", "आगे बढ़कर, आप हमारी ")}
             <Text style={styles.footerLink}>{t("Terms of Service", "सेवा की शर्तों")}</Text>

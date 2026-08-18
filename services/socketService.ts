@@ -6,7 +6,10 @@
 import { io, Socket } from 'socket.io-client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const BASE_URL = (process.env.EXPO_PUBLIC_API_BASE_URL ?? 'http://10.0.2.2:3000').replace(/\/$/, '');
+const BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL?.replace(/\/$/, '');
+if (!BASE_URL) {
+  throw new Error("EXPO_PUBLIC_API_BASE_URL is missing.");
+}
 const WS_URL = BASE_URL.replace('/api/v1', '');
 
 let socket: Socket | null = null;

@@ -19,7 +19,8 @@ export type Invoice = {
 export const getMyInvoices = () => apiRequest<Invoice[]>('/invoices/me');
 export const getInvoiceById = (id: string) => apiRequest<Invoice>(`/invoices/${id}`);
 export const getInvoicePdfUrl = (id: string) => {
-  const baseUrl = (process.env.EXPO_PUBLIC_API_BASE_URL ?? 'http://10.0.2.2:3000').replace(/\/$/, '');
+  const baseUrl = process.env.EXPO_PUBLIC_API_BASE_URL?.replace(/\/$/, '');
+  if (!baseUrl) throw new Error("API URL missing");
   return `${baseUrl}/api/v1/invoices/${id}/pdf`;
 };
 
